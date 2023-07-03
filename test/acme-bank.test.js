@@ -15,8 +15,6 @@ const { Eyes,
 
 describe('ACME Bank', () => {
   // Test control inputs to read once and share for all tests
-  var applitoolsApiKey;
-  var applitoolsServerUrl;
   var headless;
 
   // Applitools objects to share for all tests
@@ -77,11 +75,15 @@ describe('ACME Bank', () => {
   it('should log into a bank account', async () => {
     await driver.get('https://demo.applitools.com/login-v3.html');
     await eyes.check(Target.window().fully().withName('Login page'));
-    await driver.executeScript("document.querySelector('#log-in').id = 'access'");
-    await driver.executeScript("document.querySelector('#access').textContent = 'Access'");
+    // Modify the selector for username web-element
+    // await driver.executeScript("document.querySelector('#log-in').id = 'access'");
+    // await driver.executeScript("document.querySelector('#access').textContent = 'Access'");
+    await driver.executeScript("document.querySelector('#username').id = 'logonname'");
+    // Log in using the desired credentials
     await driver.findElement(By.css('#username')).sendKeys('andy');
     await driver.findElement(By.css('#password')).sendKeys('i<3pandas');
     await driver.findElement(By.id('log-in')).click();
+    // Validate the main page
     await eyes.check(Target.window().fully().withName('Main page').layout());
     const closingTime = await driver.findElement(By.id('time')).getText();
     assert(closingTime, /Your nearest branch/);
