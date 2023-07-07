@@ -55,8 +55,8 @@ describe('ACME Bank', () => {
       .withCapabilities({
         browserName: 'chrome',
         'applitools:options': {
-          // eyesServerUrl: process.env.APPLITOOLS_SERVER_URL,
-          // apiKey: process.env.APPLITOOLS_API_KEY,
+          eyesServerUrl: process.env.APPLITOOLS_SERVER_URL,
+          apiKey: process.env.APPLITOOLS_API_KEY,
           useSelfHealing: process.env.APPLITOOLS_SELF_HEALING === 'false' ? false : true
         }
       })
