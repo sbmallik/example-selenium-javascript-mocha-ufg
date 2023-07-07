@@ -22,7 +22,7 @@ describe('ACME Bank', () => {
     await driver.manage().setTimeouts( { implicit: 9000 } );
   });
 
-  it('should validate login feature', async () => {
+  it('validate login using cloud', async () => {
     await driver.get('https://demo.applitools.com/login-v3.html');
     // Modify the selector for login button
     await driver.executeScript("document.querySelector('#log-in').id = 'access'");

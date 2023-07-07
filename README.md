@@ -37,11 +37,25 @@ To execute tests, set the environment variables as follows:
 * `APPLITOOLS_SERVER_URL` to the pre-configured URL for Applitools Test Manager. Otherwise the [default URL](https://eyesapi.applitools.com) would be used.
 * `APPLITOOLS_SELF_HEALING` set to 'false' if the self healing feature needs disabling.
 
-Finally the tests can be executed with the following command:
+Finally the specific tests can be executed with the following commands:
 
-```bash
-npm test
-```
+* Local selenium test:
+
+  ```bash
+  npm test "simple login"
+  ```
+
+* Test in Applitools execution cloud:
+
+  ```bash
+  npm test "login using cloud"
+  ```
+
+* Test in Applitools execution cloud along with UFG:
+
+  ```bash
+  npm test "login using cloud and ufg"
+  ```
 
 **For full instructions on running this project, take our
 [Selenium JavaScript Mocha tutorial](https://applitools.com/tutorials/quickstart/web/selenium/javascript/mocha)!**

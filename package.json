@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "An example project for Selenium JavaScript Mocha using Applitools Ultrafast Grid",
   "scripts": {
-    "test": "mocha --timeout 180000 \"test/*.test.js\""
+    "test": "mocha --timeout 180000 \"test/*.test.js\" --grep"
   },
   "author": {
     "name": "Applitools Team",

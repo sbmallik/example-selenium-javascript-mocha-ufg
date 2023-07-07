@@ -27,7 +27,7 @@ describe('ACME Bank', () => {
   let driver;
   let eyes;
 
-  beforeEach(async function() {
+  before(() => {
     const now = new Date();
     headless = process.env.HEADLESS? ['headless'] : []
     runner = new VisualGridRunner(new RunnerOptions().testConcurrency(5));
@@ -44,6 +44,9 @@ describe('ACME Bank', () => {
     config.addBrowser(1024, 768, BrowserType.SAFARI);
     config.addDeviceEmulation(DeviceName.Pixel_2, ScreenOrientation.PORTRAIT);
     config.addDeviceEmulation(DeviceName.Nexus_10, ScreenOrientation.LANDSCAPE);
+  });
+
+  beforeEach(async function() {
     driver = await getDriver();
     await driver.manage().setTimeouts( { implicit: 10000 } );
     // Create an eyes object for visual testing
@@ -57,7 +60,7 @@ describe('ACME Bank', () => {
     );
   });
 
-  it.only('should validate login feature', async () => {
+  it('validate login using ufg and cloud', async () => {
     await driver.get('https://demo.applitools.com/login-v3.html');
     await eyes.check(Target.window().fully().withName('Login page'));
     // Modify the selector for login button
@@ -76,23 +79,15 @@ describe('ACME Bank', () => {
   });
     
   afterEach(async function() {
-    try {
-      await eyes.close(false);
-        const resultsSummary = await runner.getAllTestResults();
-        const results = resultsSummary.getAllResults().map(({testResults}) => testResults);
-        console.log('\tEyes results at: ', results[0].appUrls.batch);
-    }
-    finally {
-      if (driver) await driver.quit();
-    }
+    await eyes.closeAsync();
+    await driver.quit();
   });
     
-  /*
   after(async () => {
-    const allTestResults = await runner.getAllTestResults();
-    console.log(allTestResults);
+    const resultsSummary = await runner.getAllTestResults();
+    const results = resultsSummary.getAllResults().map(({testResults}) => testResults);
+    console.log('\tEyes results at: ', results[0].appUrls.batch);
   });
-  */
 
   const getDriver = async () => {
     return await new Builder()
