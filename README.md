@@ -54,7 +54,7 @@ Finally the specific tests can be executed with the following commands:
 * Test in Applitools execution cloud along with UFG:
 
   ```bash
-  npm test "login using cloud and ufg"
+  npm test "login using ufg and cloud"
   ```
 
 **For full instructions on running this project, take our
