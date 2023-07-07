@@ -3,6 +3,7 @@
 const { describe, it, beforeEach, afterEach } = require('mocha');
 const { assert } = require('chai');
 const { Builder, By } = require('selenium-webdriver');
+const { Options: ChromeOptions } = require('selenium-webdriver/chrome');
 
 describe('ACME Bank', () => {
   // Test control inputs to read once and share for all tests
@@ -19,6 +20,10 @@ describe('ACME Bank', () => {
           args: headless,
         },
       })
+      .setChromeOptions(new ChromeOptions().windowSize({
+        height: 768,
+        width: 1024
+      }))
       .build();
     await driver.manage().setTimeouts( { implicit: 3000 } );
   });
@@ -35,6 +40,7 @@ describe('ACME Bank', () => {
     // Validate the main page
     const closingTime = await driver.findElement(By.id('time')).getText();
     assert(closingTime, /Your nearest branch/);
+    await driver.sleep(3000);
   });
     
   afterEach(async function() {
