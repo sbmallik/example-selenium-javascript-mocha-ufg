@@ -35,6 +35,7 @@ To execute tests, set the environment variables as follows:
 
 * `APPLITOOLS_API_KEY` to your [account's API key](https://applitools.com/tutorials/guides/getting-started/registering-an-account).
 * `APPLITOOLS_SERVER_URL` to the pre-configured URL for Applitools Test Manager. Otherwise the [default URL](https://eyesapi.applitools.com) would be used.
+* `APPLITOOLS_SELF_HEALING` set to 'false' if the self healing feature needs disabling.
 
 Finally the tests can be executed with the following command:
 
