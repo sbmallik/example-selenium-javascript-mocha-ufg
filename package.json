@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "An example project for Selenium JavaScript Mocha using Applitools Ultrafast Grid",
   "scripts": {
-    "test": "mocha --no-timeouts \"test/*.test.js\""
+    "test": "mocha --timeout 180000 \"test/*.test.js\""
   },
   "author": {
     "name": "Applitools Team",
@@ -11,7 +11,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@applitools/eyes-selenium": "4.66.4",
+    "@applitools/eyes-selenium": "~4.66.10",
     "mocha": "10.2.0",
     "selenium-webdriver": "~4.10.0",
     "chromedriver": "^114.0.0",
