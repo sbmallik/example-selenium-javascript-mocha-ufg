@@ -31,11 +31,13 @@ describe('ACME Bank', () => {
   it('validate simple login', async () => {
     await driver.get('https://demo.applitools.com/login-v3.html');
     // Modify the selector for login button
-    // await driver.executeScript("document.querySelector('#log-in').id = 'access'");
-    // await driver.executeScript("document.querySelector('#access').textContent = 'Access'");
+    if (process.env.UPDATE_SELECTOR === 'true') {
+      await driver.executeScript("document.querySelector('#log-in').id = 'access'");
+      await driver.executeScript("document.querySelector('#access').textContent = 'Access'");
+    }
     // Log in using the desired credentials
-    await driver.findElement(By.css('#username')).sendKeys('andy');
-    await driver.findElement(By.css('#password')).sendKeys('i<3pandas');
+    await driver.findElement(By.css('#username')).sendKeys('qe-team');
+    await driver.findElement(By.css('#password')).sendKeys('abc123');
     await driver.findElement(By.id('log-in')).click();
     // Validate the main page
     const closingTime = await driver.findElement(By.id('time')).getText();

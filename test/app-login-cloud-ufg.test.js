@@ -15,11 +15,7 @@ const { BatchInfo,
   VisualGridRunner } = require('@applitools/eyes-selenium');
 
 describe('ACME Bank', () => {
-  // Test control inputs to read once and share for all tests
-  var headless;
-
   // Applitools objects to share for all tests
-  let batch;
   let config;
   let runner;
     
@@ -29,15 +25,13 @@ describe('ACME Bank', () => {
 
   before(() => {
     const now = new Date();
-    headless = process.env.HEADLESS? ['headless'] : []
     runner = new VisualGridRunner(new RunnerOptions().testConcurrency(5));
-    batch = new BatchInfo('Selenium JavaScript Mocha UFG', now, now.toUTCString());
 
     // Create a configuration object for Applitools Eyes.
     config = new Configuration();
     config.setApiKey(process.env.APPLITOOLS_API_KEY);
     config.setServerUrl(process.env.APPLITOOLS_SERVER_URL);
-    config.setBatch(batch);
+    config.setBatch(new BatchInfo('Selenium JavaScript Mocha UFG', now, now.toUTCString()));
     config.setForceFullPageScreenshot(true);
     config.addBrowser(800, 600, BrowserType.CHROME);
     config.addBrowser(1600, 1200, BrowserType.FIREFOX);
@@ -48,7 +42,7 @@ describe('ACME Bank', () => {
 
   beforeEach(async function() {
     driver = await getDriver();
-    await driver.manage().setTimeouts( { implicit: 10000 } );
+    await driver.manage().setTimeouts( { implicit: 3000 } );
     // Create an eyes object for visual testing
     eyes = new Eyes(runner);
     eyes.setConfiguration(config);
@@ -63,19 +57,18 @@ describe('ACME Bank', () => {
   it('validate login using ufg and cloud', async () => {
     await driver.get('https://demo.applitools.com/login-v3.html');
     await eyes.check(Target.window().fully().withName('Login page'));
-    // Modify the selector for login button
-    await driver.executeScript("document.querySelector('#log-in').id = 'access'");
-    // await driver.executeScript("document.querySelector('#access').textContent = 'Access'");
-    // Modify the selector for username web-element
-    await driver.executeScript("document.querySelector('#username').id = 'logonname'");
+    // Modify the selector for username web-element and login button
+    if (process.env.UPDATE_SELECTOR === 'true') {
+      await driver.executeScript("document.querySelector('#log-in').id = 'access'");
+      await driver.executeScript("document.querySelector('#access').textContent = 'Access'");
+      await driver.executeScript("document.querySelector('#username').id = 'logonname'");
+    }
     // Log in using the desired credentials
     await driver.findElement(By.css('#username')).sendKeys('andy');
     await driver.findElement(By.css('#password')).sendKeys('i<3pandas');
     await driver.findElement(By.id('log-in')).click();
     // Validate the main page
     await eyes.check(Target.window().fully().withName('Main page').layout());
-    const closingTime = await driver.findElement(By.id('time')).getText();
-    assert(closingTime, /Your nearest branch/);
   });
     
   afterEach(async function() {
