@@ -28,7 +28,7 @@ describe('ACME Bank', () => {
     await driver.manage().setTimeouts( { implicit: 3000 } );
   });
 
-  it('validate simple login', async () => {
+  it('validate simple login', async function() {
     await driver.get('https://demo.applitools.com/login-v3.html');
     // Modify the selector for login button
     if (process.env.UPDATE_SELECTOR === 'true') {

@@ -23,7 +23,7 @@ describe('ACME Bank', () => {
   let driver;
   let eyes;
 
-  before(() => {
+  before(function() {
     const now = new Date();
     runner = new VisualGridRunner(new RunnerOptions().testConcurrency(5));
 
@@ -54,7 +54,7 @@ describe('ACME Bank', () => {
     );
   });
 
-  it('validate login using ufg and cloud', async () => {
+  it('validate login using ufg and cloud', async function() {
     await driver.get('https://demo.applitools.com/login-v3.html');
     await eyes.check(Target.window().fully().withName('Login page'));
     // Modify the selector for username web-element and login button
@@ -76,7 +76,7 @@ describe('ACME Bank', () => {
     await driver.quit();
   });
     
-  after(async () => {
+  after(async function() {
     const resultsSummary = await runner.getAllTestResults();
     const results = resultsSummary.getAllResults().map(({testResults}) => testResults);
     console.log('\tEyes results at: ', results[0].appUrls.batch);

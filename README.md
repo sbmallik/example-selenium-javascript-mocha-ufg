@@ -3,7 +3,7 @@
 This is the example project for the `Selenium JavaScript Mocha` tutorial about running *functional* and *visual* tests in Applitools Execution Cloud.
 It shows how to start automating visual tests with the [Applitools Eyes](https://applitools.com/platform/eyes/)
 and the [Ultrafast Grid](https://applitools.com/platform/ultrafast-grid/)
-using [Selenium WebDriver](https://www.selenium.dev/) in JavaScript. 
+using [Selenium WebDriver](https://www.selenium.dev/) in JavaScript.
 In addition, it adds the code to use `Self-Healing` capabilities provided by `Applitools Execution Cloud`.
 
 It uses:
